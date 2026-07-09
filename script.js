@@ -1,17 +1,18 @@
 // ===== DATOS DE EJEMPLO (basados en main.dart) =====
 const reportes = {
-  gatito:  { titulo:"Gatito atrapado en árbol", comuna:"Providencia", estado:"Urgente", foto:"🐱", desc:"Gato joven no puede bajar desde hace 24 horas. Esquina Condell con Marín, frente a la plaza." },
-  colonia: { titulo:"Colonia de gatos sin esterilizar", comuna:"Ñuñoa", estado:"Atención", foto:"🐈", desc:"Colonia de 9 gatos en plaza Ñuñoa. Voluntaria los alimenta pero urge campaña de esterilización." },
-  perrita: { titulo:"Perrita atropellada Alameda", comuna:"Santiago Centro", estado:"Urgente", foto:"🐕", desc:"Perrita mediana atropellada frente al Metro Baquedano. Necesita traslado urgente." },
-  senior:  { titulo:"Perro senior en la calle", comuna:"Las Condes", estado:"Atención", foto:"🐕‍🦺", desc:"Perro de raza grande, viejo y desdentado, deambula por Av. Apoquindo." },
-  luna:    { titulo:"Luna busca familia", comuna:"Ñuñoa", estado:"adopcion", foto:"🐶", desc:"Perrita mestiza de 7 meses, esterilizada, vacunas al día, muy dócil y juguetona." },
-  simon:   { titulo:"Simón — labrador 3 años", comuna:"Providencia", estado:"adopcion", foto:"🐕", desc:"Labrador amarillo castrado, sociable con personas y otros perros." },
-  mishi:   { titulo:"Mishi — gata adulta esterilizada", comuna:"Santiago Centro", estado:"adopcion", foto:"🐱", desc:"Gata blanca con manchas negras, 4 años, esterilizada e independiente." },
-  conejos: { titulo:"Dos conejitos mini lop", comuna:"La Florida", estado:"adopcion", foto:"🐰", desc:"Pareja de conejos mini lop, 6 meses. Se entregan con jaula y accesorios." },
+  gatito:  { titulo:"Gatito atrapado en árbol", comuna:"Providencia", estado:"Urgente", foto:"🐱", desc:"Gato joven no puede bajar desde hace 24 horas. Esquina Condell con Marín, frente a la plaza.", lat:-33.4270, lng:-70.6083 },
+  colonia: { titulo:"Colonia de gatos sin esterilizar", comuna:"Ñuñoa", estado:"Atención", foto:"🐈", desc:"Colonia de 9 gatos en plaza Ñuñoa. Voluntaria los alimenta pero urge campaña de esterilización.", lat:-33.4593, lng:-70.5979 },
+  perrita: { titulo:"Perrita atropellada Alameda", comuna:"Santiago Centro", estado:"Urgente", foto:"🐕", desc:"Perrita mediana atropellada frente al Metro Baquedano. Necesita traslado urgente.", lat:-33.4372, lng:-70.6338 },
+  senior:  { titulo:"Perro senior en la calle", comuna:"Las Condes", estado:"Atención", foto:"🐕‍🦺", desc:"Perro de raza grande, viejo y desdentado, deambula por Av. Apoquindo.", lat:-33.4095, lng:-70.5677 },
+  luna:    { titulo:"Luna busca familia", comuna:"Ñuñoa", estado:"adopcion", foto:"🐶", desc:"Perrita mestiza de 7 meses, esterilizada, vacunas al día, muy dócil y juguetona.", lat:-33.4560, lng:-70.6010 },
+  simon:   { titulo:"Simón — labrador 3 años", comuna:"Providencia", estado:"adopcion", foto:"🐕", desc:"Labrador amarillo castrado, sociable con personas y otros perros.", lat:-33.4260, lng:-70.6100 },
+  mishi:   { titulo:"Mishi — gata adulta esterilizada", comuna:"Santiago Centro", estado:"adopcion", foto:"🐱", desc:"Gata blanca con manchas negras, 4 años, esterilizada e independiente.", lat:-33.4450, lng:-70.6550 },
+  conejos: { titulo:"Dos conejitos mini lop", comuna:"La Florida", estado:"adopcion", foto:"🐰", desc:"Pareja de conejos mini lop, 6 meses. Se entregan con jaula y accesorios.", lat:-33.5225, lng:-70.5991 },
 };
 
 const coloresEstado = { Urgente:"#e53e3e", "Atención":"#d69e2e", adopcion:"#2d5a3d" };
 const textosEstado  = { Urgente:"Urgente", "Atención":"Atención", adopcion:"adopcion" };
+const emojiEstado   = { Urgente:"⚠️", "Atención":"ℹ️", adopcion:"❤️" };
 
 const backdrop   = document.getElementById('backdrop');
 const sheetFicha = document.getElementById('sheetFicha');
@@ -46,6 +47,10 @@ function aplicarEstado(destino, sheet){
   backdrop.classList.toggle('activo', !!sheet);
   sheetFicha.classList.toggle('abierto', abrirF);
   sheetForm.classList.toggle('abierto', abrirO);
+
+  if (destino === 'mapa' && mapaLeaflet) {
+    setTimeout(()=> mapaLeaflet.invalidateSize(), 200);
+  }
 }
 
 // estado inicial en el historial
@@ -127,12 +132,47 @@ document.getElementById('btnPublicar').addEventListener('click', ()=>{
   cerrarSheets();
 });
 
+// ===== MAPA REAL (Leaflet + OpenStreetMap) =====
+let mapaLeaflet = null;
+let marcadoresMapa = []; // [{marker, estado}]
+
+function iniciarMapa(){
+  const contenedor = document.getElementById('mapaLeaflet');
+  if (!contenedor || typeof L === 'undefined') return;
+
+  mapaLeaflet = L.map(contenedor, { zoomControl:false, attributionControl:false })
+    .setView([-33.445, -70.630], 12);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+  }).addTo(mapaLeaflet);
+
+  L.control.zoom({ position:'bottomright' }).addTo(mapaLeaflet);
+
+  Object.entries(reportes).forEach(([id, r])=>{
+    const icono = L.divIcon({
+      className:'',
+      html:`<div class="pin-leaflet" style="background:${coloresEstado[r.estado]};">${emojiEstado[r.estado]}</div>`,
+      iconSize:[26,26],
+      iconAnchor:[13,13],
+    });
+    const marker = L.marker([r.lat, r.lng], { icon: icono }).addTo(mapaLeaflet);
+    marker.on('click', ()=> abrirFicha(id));
+    marcadoresMapa.push({ marker, estado: r.estado });
+  });
+}
+iniciarMapa();
+
 // ===== FILTROS DEL MAPA =====
 function aplicarFiltroMapa(filtro){
   document.querySelectorAll('.filtro-pill').forEach(p=>p.classList.toggle('on', p.dataset.filtro===filtro));
-  document.querySelectorAll('.pin-mapa').forEach(pin=>{
-    pin.style.display = (filtro==='todo' || pin.dataset.estado===filtro) ? 'flex' : 'none';
+
+  marcadoresMapa.forEach(({marker, estado})=>{
+    const mostrar = (filtro==='todo' || estado===filtro);
+    if (mostrar && mapaLeaflet && !mapaLeaflet.hasLayer(marker)) marker.addTo(mapaLeaflet);
+    if (!mostrar && mapaLeaflet && mapaLeaflet.hasLayer(marker)) mapaLeaflet.removeLayer(marker);
   });
+
   document.querySelectorAll('[data-estado-item]').forEach(item=>{
     item.style.display = (filtro==='todo' || item.dataset.estadoItem===filtro) ? 'flex' : 'none';
   });
@@ -154,68 +194,3 @@ document.querySelectorAll('[data-stat-goto]').forEach(chip=>{
 document.getElementById('btnSalir').addEventListener('click', ()=>{
   mostrarToast('👋 Sesión cerrada (simulado)');
 });
-
-// ===== MAPA ARRASTRABLE (pan) =====
-(function(){
-  const fake   = document.getElementById('mapaFake');
-  const lienzo = document.getElementById('mapaLienzo');
-  const hint   = document.getElementById('mapaHint');
-  if (!fake || !lienzo) return;
-
-  let arrastrando = false;
-  let startX=0, startY=0, offX=0, offY=0;
-  let downX=0, downY=0;
-  let moved = false;
-  const UMBRAL = 6; // px mínimos para considerarlo arrastre, no toque
-
-  function limites(){
-    const maxX = 0;
-    const minX = fake.clientWidth - lienzo.offsetWidth;
-    const maxY = 0;
-    const minY = fake.clientHeight - lienzo.offsetHeight;
-    return {minX, maxX, minY, maxY};
-  }
-
-  function aplicar(){
-    const {minX,maxX,minY,maxY} = limites();
-    offX = Math.min(maxX, Math.max(minX, offX));
-    offY = Math.min(maxY, Math.max(minY, offY));
-    lienzo.style.transform = `translate(${offX}px, ${offY}px)`;
-  }
-
-  // centrar inicialmente
-  offX = (fake.clientWidth - lienzo.offsetWidth) / 2;
-  offY = (fake.clientHeight - lienzo.offsetHeight) / 2;
-  aplicar();
-
-  function inicio(x,y){
-    arrastrando = true; moved = false;
-    downX = x; downY = y;
-    startX = x - offX; startY = y - offY;
-  }
-  function mover(x,y){
-    if (!arrastrando) return;
-    if (Math.abs(x-downX) > UMBRAL || Math.abs(y-downY) > UMBRAL) {
-      moved = true;
-      if (hint) hint.classList.add('oculto');
-    }
-    offX = x - startX; offY = y - startY;
-    aplicar();
-  }
-  function fin(){ arrastrando = false; }
-
-  fake.addEventListener('pointerdown', (e)=>{
-    fake.setPointerCapture(e.pointerId);
-    inicio(e.clientX, e.clientY);
-  });
-  fake.addEventListener('pointermove', (e)=> mover(e.clientX, e.clientY));
-  fake.addEventListener('pointerup', fin);
-  fake.addEventListener('pointercancel', fin);
-
-  // solo bloquear el click de un pin si realmente hubo arrastre (más allá del umbral)
-  lienzo.querySelectorAll('.pin-mapa').forEach(pin=>{
-    pin.addEventListener('click', (e)=>{
-      if (moved) { e.stopPropagation(); e.preventDefault(); }
-    }, true);
-  });
-})();

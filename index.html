@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Patitas al Rescate</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Fraunces:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -67,15 +68,7 @@
           <div class="filtro-pill" data-filtro="Atención">🟡</div>
           <div class="filtro-pill" data-filtro="adopcion">🟢</div>
         </div>
-        <div class="mapa-lienzo" id="mapaLienzo">
-          <div class="pin-mapa" data-estado="Urgente" data-reporte="perrita" style="background:#e53e3e;top:150px;left:110px;">⚠️</div>
-          <div class="pin-mapa" data-estado="Atención" data-reporte="senior" style="background:#d69e2e;top:190px;left:220px;">ℹ️</div>
-          <div class="pin-mapa" data-estado="adopcion" data-reporte="luna" style="background:#2d5a3d;top:230px;left:160px;">❤️</div>
-          <div class="pin-mapa" data-estado="Urgente" data-reporte="gatito" style="background:#e53e3e;top:110px;left:290px;">⚠️</div>
-          <div class="pin-mapa" data-estado="adopcion" data-reporte="simon" style="background:#2d5a3d;top:280px;left:280px;">❤️</div>
-          <div class="pin-mapa" data-estado="Atención" data-reporte="colonia" style="background:#d69e2e;top:80px;left:180px;">ℹ️</div>
-        </div>
-        <div class="mapa-hint" id="mapaHint">👆 Arrastra el mapa</div>
+        <div id="mapaLeaflet" class="mapa-leaflet"></div>
         <div class="leyenda-mapa">
           🔴 Urgente<br>🟡 En atención<br>🟢 En adopción
         </div>
@@ -210,6 +203,7 @@
   </div>
 </div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
