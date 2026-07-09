@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patitas al Rescate — Vista previa de la app</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Fraunces:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+<div class="pagina-titulo">
+  <h1>🐾 Patitas al Rescate</h1>
+  <p>Vista previa de la app · toca los botones inferiores para navegar</p>
+</div>
+ 
+<div class="phone">
+  <div class="screen">
+    <div class="statusbar" id="statusbarTop">
+      <span>9:41</span><span>📶 🔋</span>
+    </div>
+ 
+    <!-- INICIO -->
+    <div class="vista activa" data-vista="inicio">
+      <div class="header-grad">
+        <div class="row-between">
+          <div>
+            <div class="saludo">Hola, Camila 👋</div>
+            <div class="brand">Patitas al Rescate 🐾</div>
+          </div>
+          <div class="avatar-mini">C</div>
+        </div>
+        <div class="stats-hero">
+          <div class="stat-chip">🚨 <div><b>6</b><span>Urgentes</span></div></div>
+          <div class="stat-chip">❤️ <div><b>8</b><span>Adopción</span></div></div>
+        </div>
+      </div>
+      <div class="contenido">
+        <div class="seccion-titulo">Acciones rápidas</div>
+        <div class="acciones-grid">
+          <div class="accion-fila">
+            <div class="accion-card"><div class="accion-icon" style="background:rgba(229,62,62,0.1);">🚨</div><div><b>Reportar</b><small>Animal en peligro</small></div></div>
+            <div class="accion-card"><div class="accion-icon" style="background:rgba(236,72,153,0.1);">❤️</div><div><b>Adoptar</b><small>Ver disponibles</small></div></div>
+          </div>
+          <div class="accion-fila">
+            <div class="accion-card"><div class="accion-icon" style="background:rgba(45,90,61,0.1);">🗺️</div><div><b>Mapa</b><small>Ver reportes</small></div></div>
+            <div class="accion-card"><div class="accion-icon" style="background:rgba(59,130,246,0.1);">👤</div><div><b>Perfil</b><small>Mis logros</small></div></div>
+          </div>
+        </div>
+        <div class="seccion-titulo">Actividad reciente</div>
+        <div class="item-actividad">
+          <div class="item-icono" style="background:rgba(229,62,62,0.1);">⚠️</div>
+          <div class="item-info"><b>Gatito atrapado en árbol</b><small>📍 Providencia</small></div>
+          <div class="badge-estado" style="background:rgba(229,62,62,0.12);color:var(--rojo);">Urgente</div>
+        </div>
+        <div class="item-actividad">
+          <div class="item-icono" style="background:rgba(214,158,46,0.1);">ℹ️</div>
+          <div class="item-info"><b>Colonia de gatos sin esterilizar</b><small>📍 Ñuñoa</small></div>
+          <div class="badge-estado" style="background:rgba(214,158,46,0.12);color:var(--amarillo);">Atención</div>
+        </div>
+        <div class="item-actividad">
+          <div class="item-icono" style="background:rgba(45,90,61,0.1);">❤️</div>
+          <div class="item-info"><b>Luna busca familia</b><small>📍 Ñuñoa</small></div>
+          <div class="badge-estado" style="background:rgba(45,90,61,0.12);color:var(--verde);">adopcion</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- MAPA -->
+    <div class="vista" data-vista="mapa">
+      <div class="mapa-fake">
+        <div class="filtros-mapa">
+          <div class="filtro-pill on">Todo</div>
+          <div class="filtro-pill">🔴</div>
+          <div class="filtro-pill">🟡</div>
+          <div class="filtro-pill">🟢</div>
+        </div>
+        <div class="pin-mapa" style="background:#e53e3e;top:90px;left:60px;">⚠️</div>
+        <div class="pin-mapa" style="background:#d69e2e;top:130px;left:150px;">ℹ️</div>
+        <div class="pin-mapa" style="background:#2d5a3d;top:170px;left:100px;">❤️</div>
+        <div class="pin-mapa" style="background:#e53e3e;top:60px;left:220px;">⚠️</div>
+        <div class="leyenda-mapa">
+          🔴 Urgente<br>🟡 En atención<br>🟢 En adopción
+        </div>
+        <div class="fab-reportar">➕ Reportar</div>
+      </div>
+      <div class="contenido">
+        <div class="seccion-titulo">Reportes cercanos</div>
+        <div class="item-actividad">
+          <div class="item-icono" style="background:rgba(229,62,62,0.1);">⚠️</div>
+          <div class="item-info"><b>Perrita atropellada Alameda</b><small>📍 Santiago Centro</small></div>
+          <div class="badge-estado" style="background:rgba(229,62,62,0.12);color:var(--rojo);">Urgente</div>
+        </div>
+        <div class="item-actividad">
+          <div class="item-icono" style="background:rgba(214,158,46,0.1);">ℹ️</div>
+          <div class="item-info"><b>Perro senior en la calle</b><small>📍 Las Condes</small></div>
+          <div class="badge-estado" style="background:rgba(214,158,46,0.12);color:var(--amarillo);">Atención</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- ADOPCIONES -->
+    <div class="vista" data-vista="adopciones">
+      <div class="header-grad" style="padding:44px 18px 14px;">
+        <div class="brand">Adopciones 🐾</div>
+        <div class="saludo" style="margin-top:2px;">Encuentra tu compañero ideal</div>
+      </div>
+      <div class="contenido">
+        <div class="grid-adopcion">
+          <div class="card-adopcion">
+            <div class="foto-adopcion" style="background:rgba(45,90,61,0.08);">🐶</div>
+            <div class="info"><b>Luna</b><small>📍 Ñuñoa</small><div class="btn-adoptar">Adoptar</div></div>
+          </div>
+          <div class="card-adopcion">
+            <div class="foto-adopcion" style="background:rgba(45,90,61,0.08);">🐕</div>
+            <div class="info"><b>Simón</b><small>📍 Providencia</small><div class="btn-adoptar">Adoptar</div></div>
+          </div>
+          <div class="card-adopcion">
+            <div class="foto-adopcion" style="background:rgba(45,90,61,0.08);">🐱</div>
+            <div class="info"><b>Mishi</b><small>📍 Sgto. Centro</small><div class="btn-adoptar">Adoptar</div></div>
+          </div>
+          <div class="card-adopcion">
+            <div class="foto-adopcion" style="background:rgba(45,90,61,0.08);">🐰</div>
+            <div class="info"><b>Mini Lop x2</b><small>📍 La Florida</small><div class="btn-adoptar">Adoptar</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- PERFIL -->
+    <div class="vista" data-vista="perfil">
+      <div class="perfil-header">
+        <div class="perfil-avatar-grande">C</div>
+        <b style="font-size:15px;">Camila Rojas</b>
+        <div style="font-size:10.5px;color:rgba(255,255,255,0.7);">camila@correo.com</div>
+        <div class="chip-rescatador">🐾 Rescatadora activa</div>
+      </div>
+      <div class="stats-perfil">
+        <div class="stat-p">🐾<b style="color:var(--verde);">12</b><small>Reportes</small></div>
+        <div class="stat-p">⭐<b style="color:#d69e2e;">120</b><small>Puntos</small></div>
+        <div class="stat-p">🏅<b style="color:#e08a3e;">🥇 Oro</b><small>Nivel</small></div>
+      </div>
+      <div class="seccion-titulo" style="padding:0 14px;">🏆 Logros</div>
+      <div class="logros-fila" style="margin-top:8px;">
+        <div class="logro-c"><div class="logro-icono">🐕</div><small>Primer rescate</small></div>
+        <div class="logro-c"><div class="logro-icono">⭐</div><small>5 reportes</small></div>
+        <div class="logro-c"><div class="logro-icono">🏆</div><small>10 reportes</small></div>
+        <div class="logro-c"><div class="logro-icono bloqueado">🔒</div><small>Héroe</small></div>
+      </div>
+      <div class="contenido" style="padding-top:0;">
+        <div class="seccion-titulo">📍 Mis reportes</div>
+        <div class="item-actividad">
+          <div class="item-icono" style="background:rgba(45,90,61,0.1);">❤️</div>
+          <div class="item-info"><b>Luna busca familia</b><small>📍 Ñuñoa</small></div>
+        </div>
+        <div class="item-actividad">
+          <div class="item-icono" style="background:rgba(229,62,62,0.1);">⚠️</div>
+          <div class="item-info"><b>Gatito atrapado en árbol</b><small>📍 Providencia</small></div>
+        </div>
+      </div>
+      <div class="btn-salir">🚪 Cerrar sesión</div>
+    </div>
+ 
+    <!-- NAV INFERIOR -->
+    <div class="nav-inferior">
+      <div class="nav-btn activo" data-nav="inicio"><span class="icono">🏠</span>Inicio</div>
+      <div class="nav-btn" data-nav="mapa"><span class="icono">🗺️</span>Mapa</div>
+      <div class="nav-btn" data-nav="adopciones"><span class="icono">❤️</span>Adoptar</div>
+      <div class="nav-btn" data-nav="perfil"><span class="icono">👤</span>Perfil</div>
+    </div>
+  </div>
+</div>
+ 
+<div class="qr-box">
+  <div>
+    <b>Escanea para ver la app real</b><br>
+    <small>Reemplaza este QR con el de tu sitio publicado</small>
+  </div>
+</div>
+ 
+<script src="script.js"></script>
+</body>
+</html>
+ 
