@@ -18,17 +18,44 @@ const sheetFicha = document.getElementById('sheetFicha');
 const sheetForm  = document.getElementById('sheetForm');
 const toast      = document.getElementById('toastMini');
 
-// ===== NAVEGACIÓN INFERIOR =====
+let vistaActual = 'inicio';
+let sheetActual = null; // null | 'ficha' | 'form'
+
+// ===== NAVEGACIÓN INFERIOR (con historial) =====
 document.querySelectorAll('.nav-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=> irAVista(btn.dataset.nav));
+  btn.addEventListener('click', ()=> navegarA(btn.dataset.nav));
 });
 document.querySelectorAll('[data-goto]').forEach(el=>{
-  el.addEventListener('click', ()=> irAVista(el.dataset.goto));
+  el.addEventListener('click', ()=> navegarA(el.dataset.goto));
 });
-function irAVista(destino){
+
+function navegarA(destino){
+  if (destino === vistaActual && !sheetActual) return;
+  history.pushState({view: destino, sheet: null}, '');
+  aplicarEstado(destino, null);
+}
+
+function aplicarEstado(destino, sheet){
+  vistaActual = destino;
+  sheetActual = sheet;
   document.querySelectorAll('.vista').forEach(v=>v.classList.toggle('activa', v.dataset.vista===destino));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('activo', b.dataset.nav===destino));
+
+  const abrirF = sheet === 'ficha';
+  const abrirO = sheet === 'form';
+  backdrop.classList.toggle('activo', !!sheet);
+  sheetFicha.classList.toggle('abierto', abrirF);
+  sheetForm.classList.toggle('abierto', abrirO);
 }
+
+// estado inicial en el historial
+history.replaceState({view:'inicio', sheet:null}, '');
+
+// el botón/gesto "atrás" del celular dispara esto en vez de salir de la página
+window.addEventListener('popstate', (e)=>{
+  const st = e.state || {view:'inicio', sheet:null};
+  aplicarEstado(st.view, st.sheet);
+});
 
 // ===== TOAST =====
 function mostrarToast(msg){
@@ -37,15 +64,13 @@ function mostrarToast(msg){
   setTimeout(()=> toast.classList.remove('activo'), 2200);
 }
 
-// ===== BACKDROP =====
-function abrirSheet(sheet){
-  backdrop.classList.add('activo');
-  sheet.classList.add('abierto');
+// ===== ABRIR / CERRAR SHEETS (empujan y sacan del historial) =====
+function abrirSheetNav(nombre){
+  history.pushState({view: vistaActual, sheet: nombre}, '');
+  aplicarEstado(vistaActual, nombre);
 }
 function cerrarSheets(){
-  backdrop.classList.remove('activo');
-  sheetFicha.classList.remove('abierto');
-  sheetForm.classList.remove('abierto');
+  if (sheetActual) history.back(); // dispara popstate -> aplicarEstado cierra la hoja
 }
 backdrop.addEventListener('click', cerrarSheets);
 document.querySelectorAll('[data-cerrar]').forEach(btn=>{
@@ -82,7 +107,7 @@ function abrirFicha(id){
       <div class="btn-sheet" style="background:#25d366;" onclick="mostrarToast('💬 Se abriría WhatsApp del rescatista')">💬 WhatsApp</div>
       <div class="btn-sheet" style="background:#4285f4;" onclick="mostrarToast('🗺️ Se abriría Google Maps')">🧭 Cómo llegar</div>`;
   }
-  abrirSheet(sheetFicha);
+  abrirSheetNav('ficha');
 }
 
 // ===== BOTÓN ADOPTAR DIRECTO =====
@@ -95,11 +120,11 @@ document.querySelectorAll('[data-adoptar]').forEach(btn=>{
 
 // ===== FORMULARIO REPORTAR (calcado de FormReporte) =====
 document.querySelectorAll('[data-accion="reportar"]').forEach(el=>{
-  el.addEventListener('click', ()=> abrirSheet(sheetForm));
+  el.addEventListener('click', ()=> abrirSheetNav('form'));
 });
 document.getElementById('btnPublicar').addEventListener('click', ()=>{
-  cerrarSheets();
   mostrarToast('🎉 Reporte publicado (simulado)');
+  cerrarSheets();
 });
 
 // ===== FILTROS DEL MAPA =====
