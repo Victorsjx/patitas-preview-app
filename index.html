@@ -2,23 +2,15 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Patitas al Rescate — Vista previa de la app</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Patitas al Rescate</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Fraunces:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="pagina-titulo">
-  <h1>🐾 Patitas al Rescate</h1>
-  <p>Vista previa de la app · toca los botones inferiores para navegar</p>
-</div>
-
-<div class="phone">
+<div class="app-shell">
   <div class="screen">
-    <div class="statusbar" id="statusbarTop">
-      <span>9:41</span><span>📶 🔋</span>
-    </div>
 
     <!-- INICIO -->
     <div class="vista activa" data-vista="inicio">
@@ -174,10 +166,10 @@
       <div class="nav-btn" data-nav="perfil"><span class="icono">👤</span>Perfil</div>
     </div>
 
-    <!-- BACKDROP + BOTTOM SHEETS (dentro del marco del celular) -->
+    <!-- BACKDROP + BOTTOM SHEETS -->
     <div class="backdrop" id="backdrop"></div>
 
-    <!-- FICHA DE DETALLE (calcada de _mostrarDetalle en main.dart) -->
+    <!-- FICHA DE DETALLE -->
     <div class="sheet" id="sheetFicha">
       <button class="sheet-close" data-cerrar>✕</button>
       <div class="sheet-handle"></div>
@@ -193,7 +185,7 @@
       </div>
     </div>
 
-    <!-- FORMULARIO REPORTAR (calcado de FormReporte en main.dart) -->
+    <!-- FORMULARIO REPORTAR -->
     <div class="sheet" id="sheetForm">
       <button class="sheet-close" data-cerrar>✕</button>
       <div class="sheet-handle"></div>
@@ -215,13 +207,6 @@
 
     <!-- TOAST -->
     <div class="toast-mini" id="toastMini"></div>
-  </div>
-</div>
-
-<div class="qr-box">
-  <div>
-    <b>Escanea para ver la app real</b><br>
-    <small>Reemplaza este QR con el de tu sitio publicado</small>
   </div>
 </div>
 
