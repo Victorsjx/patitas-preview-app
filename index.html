@@ -8,18 +8,18 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
- 
+
 <div class="pagina-titulo">
   <h1>🐾 Patitas al Rescate</h1>
   <p>Vista previa de la app · toca los botones inferiores para navegar</p>
 </div>
- 
+
 <div class="phone">
   <div class="screen">
     <div class="statusbar" id="statusbarTop">
       <span>9:41</span><span>📶 🔋</span>
     </div>
- 
+
     <!-- INICIO -->
     <div class="vista activa" data-vista="inicio">
       <div class="header-grad">
@@ -39,66 +39,66 @@
         <div class="seccion-titulo">Acciones rápidas</div>
         <div class="acciones-grid">
           <div class="accion-fila">
-            <div class="accion-card"><div class="accion-icon" style="background:rgba(229,62,62,0.1);">🚨</div><div><b>Reportar</b><small>Animal en peligro</small></div></div>
-            <div class="accion-card"><div class="accion-icon" style="background:rgba(236,72,153,0.1);">❤️</div><div><b>Adoptar</b><small>Ver disponibles</small></div></div>
+            <div class="accion-card" data-accion="reportar"><div class="accion-icon" style="background:rgba(229,62,62,0.1);">🚨</div><div><b>Reportar</b><small>Animal en peligro</small></div></div>
+            <div class="accion-card" data-goto="adopciones"><div class="accion-icon" style="background:rgba(236,72,153,0.1);">❤️</div><div><b>Adoptar</b><small>Ver disponibles</small></div></div>
           </div>
           <div class="accion-fila">
-            <div class="accion-card"><div class="accion-icon" style="background:rgba(45,90,61,0.1);">🗺️</div><div><b>Mapa</b><small>Ver reportes</small></div></div>
-            <div class="accion-card"><div class="accion-icon" style="background:rgba(59,130,246,0.1);">👤</div><div><b>Perfil</b><small>Mis logros</small></div></div>
+            <div class="accion-card" data-goto="mapa"><div class="accion-icon" style="background:rgba(45,90,61,0.1);">🗺️</div><div><b>Mapa</b><small>Ver reportes</small></div></div>
+            <div class="accion-card" data-goto="perfil"><div class="accion-icon" style="background:rgba(59,130,246,0.1);">👤</div><div><b>Perfil</b><small>Mis logros</small></div></div>
           </div>
         </div>
         <div class="seccion-titulo">Actividad reciente</div>
-        <div class="item-actividad">
+        <div class="item-actividad" data-reporte="gatito">
           <div class="item-icono" style="background:rgba(229,62,62,0.1);">⚠️</div>
           <div class="item-info"><b>Gatito atrapado en árbol</b><small>📍 Providencia</small></div>
           <div class="badge-estado" style="background:rgba(229,62,62,0.12);color:var(--rojo);">Urgente</div>
         </div>
-        <div class="item-actividad">
+        <div class="item-actividad" data-reporte="colonia">
           <div class="item-icono" style="background:rgba(214,158,46,0.1);">ℹ️</div>
           <div class="item-info"><b>Colonia de gatos sin esterilizar</b><small>📍 Ñuñoa</small></div>
           <div class="badge-estado" style="background:rgba(214,158,46,0.12);color:var(--amarillo);">Atención</div>
         </div>
-        <div class="item-actividad">
+        <div class="item-actividad" data-reporte="luna">
           <div class="item-icono" style="background:rgba(45,90,61,0.1);">❤️</div>
           <div class="item-info"><b>Luna busca familia</b><small>📍 Ñuñoa</small></div>
           <div class="badge-estado" style="background:rgba(45,90,61,0.12);color:var(--verde);">adopcion</div>
         </div>
       </div>
     </div>
- 
+
     <!-- MAPA -->
     <div class="vista" data-vista="mapa">
       <div class="mapa-fake">
         <div class="filtros-mapa">
-          <div class="filtro-pill on">Todo</div>
-          <div class="filtro-pill">🔴</div>
-          <div class="filtro-pill">🟡</div>
-          <div class="filtro-pill">🟢</div>
+          <div class="filtro-pill on" data-filtro="todo">Todo</div>
+          <div class="filtro-pill" data-filtro="Urgente">🔴</div>
+          <div class="filtro-pill" data-filtro="Atención">🟡</div>
+          <div class="filtro-pill" data-filtro="adopcion">🟢</div>
         </div>
-        <div class="pin-mapa" style="background:#e53e3e;top:90px;left:60px;">⚠️</div>
-        <div class="pin-mapa" style="background:#d69e2e;top:130px;left:150px;">ℹ️</div>
-        <div class="pin-mapa" style="background:#2d5a3d;top:170px;left:100px;">❤️</div>
-        <div class="pin-mapa" style="background:#e53e3e;top:60px;left:220px;">⚠️</div>
+        <div class="pin-mapa" data-estado="Urgente" data-reporte="perrita" style="background:#e53e3e;top:90px;left:60px;">⚠️</div>
+        <div class="pin-mapa" data-estado="Atención" data-reporte="senior" style="background:#d69e2e;top:130px;left:150px;">ℹ️</div>
+        <div class="pin-mapa" data-estado="adopcion" data-reporte="luna" style="background:#2d5a3d;top:170px;left:100px;">❤️</div>
+        <div class="pin-mapa" data-estado="Urgente" data-reporte="gatito" style="background:#e53e3e;top:60px;left:220px;">⚠️</div>
         <div class="leyenda-mapa">
           🔴 Urgente<br>🟡 En atención<br>🟢 En adopción
         </div>
-        <div class="fab-reportar">➕ Reportar</div>
+        <div class="fab-reportar" data-accion="reportar">➕ Reportar</div>
       </div>
       <div class="contenido">
         <div class="seccion-titulo">Reportes cercanos</div>
-        <div class="item-actividad">
+        <div class="item-actividad" data-estado-item="Urgente" data-reporte="perrita">
           <div class="item-icono" style="background:rgba(229,62,62,0.1);">⚠️</div>
           <div class="item-info"><b>Perrita atropellada Alameda</b><small>📍 Santiago Centro</small></div>
           <div class="badge-estado" style="background:rgba(229,62,62,0.12);color:var(--rojo);">Urgente</div>
         </div>
-        <div class="item-actividad">
+        <div class="item-actividad" data-estado-item="Atención" data-reporte="senior">
           <div class="item-icono" style="background:rgba(214,158,46,0.1);">ℹ️</div>
           <div class="item-info"><b>Perro senior en la calle</b><small>📍 Las Condes</small></div>
           <div class="badge-estado" style="background:rgba(214,158,46,0.12);color:var(--amarillo);">Atención</div>
         </div>
       </div>
     </div>
- 
+
     <!-- ADOPCIONES -->
     <div class="vista" data-vista="adopciones">
       <div class="header-grad" style="padding:44px 18px 14px;">
@@ -107,26 +107,26 @@
       </div>
       <div class="contenido">
         <div class="grid-adopcion">
-          <div class="card-adopcion">
+          <div class="card-adopcion" data-reporte="luna">
             <div class="foto-adopcion" style="background:rgba(45,90,61,0.08);">🐶</div>
-            <div class="info"><b>Luna</b><small>📍 Ñuñoa</small><div class="btn-adoptar">Adoptar</div></div>
+            <div class="info"><b>Luna</b><small>📍 Ñuñoa</small><div class="btn-adoptar" data-adoptar="Luna">Adoptar</div></div>
           </div>
-          <div class="card-adopcion">
+          <div class="card-adopcion" data-reporte="simon">
             <div class="foto-adopcion" style="background:rgba(45,90,61,0.08);">🐕</div>
-            <div class="info"><b>Simón</b><small>📍 Providencia</small><div class="btn-adoptar">Adoptar</div></div>
+            <div class="info"><b>Simón</b><small>📍 Providencia</small><div class="btn-adoptar" data-adoptar="Simón">Adoptar</div></div>
           </div>
-          <div class="card-adopcion">
+          <div class="card-adopcion" data-reporte="mishi">
             <div class="foto-adopcion" style="background:rgba(45,90,61,0.08);">🐱</div>
-            <div class="info"><b>Mishi</b><small>📍 Sgto. Centro</small><div class="btn-adoptar">Adoptar</div></div>
+            <div class="info"><b>Mishi</b><small>📍 Sgto. Centro</small><div class="btn-adoptar" data-adoptar="Mishi">Adoptar</div></div>
           </div>
-          <div class="card-adopcion">
+          <div class="card-adopcion" data-reporte="conejos">
             <div class="foto-adopcion" style="background:rgba(45,90,61,0.08);">🐰</div>
-            <div class="info"><b>Mini Lop x2</b><small>📍 La Florida</small><div class="btn-adoptar">Adoptar</div></div>
+            <div class="info"><b>Mini Lop x2</b><small>📍 La Florida</small><div class="btn-adoptar" data-adoptar="Mini Lop x2">Adoptar</div></div>
           </div>
         </div>
       </div>
     </div>
- 
+
     <!-- PERFIL -->
     <div class="vista" data-vista="perfil">
       <div class="perfil-header">
@@ -149,18 +149,18 @@
       </div>
       <div class="contenido" style="padding-top:0;">
         <div class="seccion-titulo">📍 Mis reportes</div>
-        <div class="item-actividad">
+        <div class="item-actividad" data-reporte="luna">
           <div class="item-icono" style="background:rgba(45,90,61,0.1);">❤️</div>
           <div class="item-info"><b>Luna busca familia</b><small>📍 Ñuñoa</small></div>
         </div>
-        <div class="item-actividad">
+        <div class="item-actividad" data-reporte="gatito">
           <div class="item-icono" style="background:rgba(229,62,62,0.1);">⚠️</div>
           <div class="item-info"><b>Gatito atrapado en árbol</b><small>📍 Providencia</small></div>
         </div>
       </div>
-      <div class="btn-salir">🚪 Cerrar sesión</div>
+      <div class="btn-salir" id="btnSalir">🚪 Cerrar sesión</div>
     </div>
- 
+
     <!-- NAV INFERIOR -->
     <div class="nav-inferior">
       <div class="nav-btn activo" data-nav="inicio"><span class="icono">🏠</span>Inicio</div>
@@ -168,17 +168,56 @@
       <div class="nav-btn" data-nav="adopciones"><span class="icono">❤️</span>Adoptar</div>
       <div class="nav-btn" data-nav="perfil"><span class="icono">👤</span>Perfil</div>
     </div>
+
+    <!-- BACKDROP + BOTTOM SHEETS (dentro del marco del celular) -->
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- FICHA DE DETALLE (calcada de _mostrarDetalle en main.dart) -->
+    <div class="sheet" id="sheetFicha">
+      <div class="sheet-handle"></div>
+      <div class="sheet-foto" id="fichaFoto">🐾</div>
+      <div class="sheet-body">
+        <div class="row-between" style="align-items:flex-start;">
+          <b id="fichaTitulo" style="font-size:15px;">Título</b>
+          <div class="badge-estado" id="fichaBadge">Estado</div>
+        </div>
+        <div class="sheet-meta" id="fichaMeta">📍 Comuna · 👤 Anónimo</div>
+        <div class="sheet-desc" id="fichaDesc">Descripción del reporte...</div>
+        <div class="sheet-btns" id="fichaBotones"></div>
+      </div>
+    </div>
+
+    <!-- FORMULARIO REPORTAR (calcado de FormReporte en main.dart) -->
+    <div class="sheet" id="sheetForm">
+      <div class="sheet-handle"></div>
+      <div class="sheet-body">
+        <b style="font-size:16px;">Reportar Animal</b>
+        <div class="foto-picker">📷<br><small>Toca para agregar foto</small></div>
+        <div class="ubic-chip">📍 Ubicación obtenida</div>
+        <input class="input-fake" placeholder="Título del reporte">
+        <select class="input-fake">
+          <option>🔴 Urgente</option>
+          <option>🟡 Atención</option>
+          <option>🟢 En Adopción</option>
+        </select>
+        <input class="input-fake" placeholder="Comuna" value="Providencia">
+        <input class="input-fake" placeholder="Descripción">
+        <button class="btn-publicar" id="btnPublicar">Publicar Reporte</button>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-mini" id="toastMini"></div>
   </div>
 </div>
- 
+
 <div class="qr-box">
   <div>
     <b>Escanea para ver la app real</b><br>
     <small>Reemplaza este QR con el de tu sitio publicado</small>
   </div>
 </div>
- 
+
 <script src="script.js"></script>
 </body>
 </html>
- 
