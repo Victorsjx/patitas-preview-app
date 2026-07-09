@@ -84,7 +84,7 @@ body{
 
 /* Mapa */
 .mapa-fake{
-  height:230px;position:relative;overflow:hidden;
+  height:52vh;position:relative;overflow:hidden;
 }
 .mapa-leaflet{ width:100%; height:100%; background:#dfe9df; }
 .pin-leaflet{
