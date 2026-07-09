@@ -128,18 +128,25 @@ document.getElementById('btnPublicar').addEventListener('click', ()=>{
 });
 
 // ===== FILTROS DEL MAPA =====
+function aplicarFiltroMapa(filtro){
+  document.querySelectorAll('.filtro-pill').forEach(p=>p.classList.toggle('on', p.dataset.filtro===filtro));
+  document.querySelectorAll('.pin-mapa').forEach(pin=>{
+    pin.style.display = (filtro==='todo' || pin.dataset.estado===filtro) ? 'flex' : 'none';
+  });
+  document.querySelectorAll('[data-estado-item]').forEach(item=>{
+    item.style.display = (filtro==='todo' || item.dataset.estadoItem===filtro) ? 'flex' : 'none';
+  });
+}
 document.querySelectorAll('.filtro-pill').forEach(pill=>{
-  pill.addEventListener('click', ()=>{
-    document.querySelectorAll('.filtro-pill').forEach(p=>p.classList.remove('on'));
-    pill.classList.add('on');
-    const filtro = pill.dataset.filtro;
+  pill.addEventListener('click', ()=> aplicarFiltroMapa(pill.dataset.filtro));
+});
 
-    document.querySelectorAll('.pin-mapa').forEach(pin=>{
-      pin.style.display = (filtro==='todo' || pin.dataset.estado===filtro) ? 'flex' : 'none';
-    });
-    document.querySelectorAll('[data-estado-item]').forEach(item=>{
-      item.style.display = (filtro==='todo' || item.dataset.estadoItem===filtro) ? 'flex' : 'none';
-    });
+// ===== CHIPS DE ESTADÍSTICAS (Inicio) → mapa filtrado o lista de adopción =====
+document.querySelectorAll('[data-stat-goto]').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    const destino = chip.dataset.statGoto;
+    navegarA(destino);
+    if (chip.dataset.statFiltro) aplicarFiltroMapa(chip.dataset.statFiltro);
   });
 });
 
@@ -157,7 +164,9 @@ document.getElementById('btnSalir').addEventListener('click', ()=>{
 
   let arrastrando = false;
   let startX=0, startY=0, offX=0, offY=0;
+  let downX=0, downY=0;
   let moved = false;
+  const UMBRAL = 6; // px mínimos para considerarlo arrastre, no toque
 
   function limites(){
     const maxX = 0;
@@ -181,19 +190,21 @@ document.getElementById('btnSalir').addEventListener('click', ()=>{
 
   function inicio(x,y){
     arrastrando = true; moved = false;
+    downX = x; downY = y;
     startX = x - offX; startY = y - offY;
   }
   function mover(x,y){
     if (!arrastrando) return;
+    if (Math.abs(x-downX) > UMBRAL || Math.abs(y-downY) > UMBRAL) {
+      moved = true;
+      if (hint) hint.classList.add('oculto');
+    }
     offX = x - startX; offY = y - startY;
-    moved = true;
     aplicar();
-    if (hint) hint.classList.add('oculto');
   }
   function fin(){ arrastrando = false; }
 
   fake.addEventListener('pointerdown', (e)=>{
-    if (e.target.closest('.pin-mapa') && false) return; // permitir arrastrar aunque empiece sobre un pin
     fake.setPointerCapture(e.pointerId);
     inicio(e.clientX, e.clientY);
   });
@@ -201,10 +212,10 @@ document.getElementById('btnSalir').addEventListener('click', ()=>{
   fake.addEventListener('pointerup', fin);
   fake.addEventListener('pointercancel', fin);
 
-  // evitar que un pin abra la ficha si en realidad se estaba arrastrando el mapa
+  // solo bloquear el click de un pin si realmente hubo arrastre (más allá del umbral)
   lienzo.querySelectorAll('.pin-mapa').forEach(pin=>{
     pin.addEventListener('click', (e)=>{
-      if (moved) { e.stopPropagation(); moved = false; }
+      if (moved) { e.stopPropagation(); e.preventDefault(); }
     }, true);
   });
 })();
