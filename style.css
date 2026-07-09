@@ -4,6 +4,7 @@
   --gris:#8c8c8c;
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Nunito',sans-serif;}
+html,body{overscroll-behavior:none;}
 body{
   min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
   gap:22px; background:radial-gradient(circle at 30% 20%, #24402d, #10201a 70%);
@@ -34,7 +35,7 @@ body{
 }
 
 /* ===== VISTAS ===== */
-.vista{ position:absolute; inset:0; opacity:0; pointer-events:none; transition:opacity .25s ease; overflow-y:auto; }
+.vista{ position:absolute; inset:0; opacity:0; pointer-events:none; transition:opacity .25s ease; overflow-y:auto; overscroll-behavior:contain; }
 .vista.activa{ opacity:1; pointer-events:auto; }
 .vista::-webkit-scrollbar{display:none;}
 
@@ -226,3 +227,28 @@ body{
   text-align:center;
 }
 .toast-mini.activo{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ===== MAPA ARRASTRABLE ===== */
+.mapa-fake{ touch-action:none; }
+.mapa-lienzo{
+  position:absolute; top:0; left:0; width:600px; height:460px;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.5), transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.35), transparent 45%),
+    linear-gradient(160deg,#dfe9df,#cfe0d2 60%,#bcd6c4);
+  cursor:grab; user-select:none;
+}
+.mapa-lienzo:active{cursor:grabbing;}
+.mapa-hint{
+  position:absolute; bottom:16px; left:50%; transform:translateX(-50%);
+  background:rgba(0,0,0,0.55); color:#fff; font-size:9.5px; font-weight:700;
+  padding:5px 12px; border-radius:20px; z-index:6; pointer-events:none;
+  transition:opacity .4s ease;
+}
+.mapa-hint.oculto{opacity:0;}
+
+/* ===== BOTÓN CERRAR SHEET ===== */
+.sheet-close{
+  position:absolute; top:10px; right:12px; width:28px; height:28px; border-radius:50%;
+  background:#f0f0f0; border:none; color:#666; font-size:13px; cursor:pointer; z-index:5;
+}

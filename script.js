@@ -48,6 +48,9 @@ function cerrarSheets(){
   sheetForm.classList.remove('abierto');
 }
 backdrop.addEventListener('click', cerrarSheets);
+document.querySelectorAll('[data-cerrar]').forEach(btn=>{
+  btn.addEventListener('click', (e)=>{ e.stopPropagation(); cerrarSheets(); });
+});
 
 // ===== FICHA DE DETALLE (calcada de _mostrarDetalle) =====
 document.querySelectorAll('[data-reporte]').forEach(el=>{
@@ -119,3 +122,64 @@ document.querySelectorAll('.filtro-pill').forEach(pill=>{
 document.getElementById('btnSalir').addEventListener('click', ()=>{
   mostrarToast('👋 Sesión cerrada (simulado)');
 });
+
+// ===== MAPA ARRASTRABLE (pan) =====
+(function(){
+  const fake   = document.getElementById('mapaFake');
+  const lienzo = document.getElementById('mapaLienzo');
+  const hint   = document.getElementById('mapaHint');
+  if (!fake || !lienzo) return;
+
+  let arrastrando = false;
+  let startX=0, startY=0, offX=0, offY=0;
+  let moved = false;
+
+  function limites(){
+    const maxX = 0;
+    const minX = fake.clientWidth - lienzo.offsetWidth;
+    const maxY = 0;
+    const minY = fake.clientHeight - lienzo.offsetHeight;
+    return {minX, maxX, minY, maxY};
+  }
+
+  function aplicar(){
+    const {minX,maxX,minY,maxY} = limites();
+    offX = Math.min(maxX, Math.max(minX, offX));
+    offY = Math.min(maxY, Math.max(minY, offY));
+    lienzo.style.transform = `translate(${offX}px, ${offY}px)`;
+  }
+
+  // centrar inicialmente
+  offX = (fake.clientWidth - lienzo.offsetWidth) / 2;
+  offY = (fake.clientHeight - lienzo.offsetHeight) / 2;
+  aplicar();
+
+  function inicio(x,y){
+    arrastrando = true; moved = false;
+    startX = x - offX; startY = y - offY;
+  }
+  function mover(x,y){
+    if (!arrastrando) return;
+    offX = x - startX; offY = y - startY;
+    moved = true;
+    aplicar();
+    if (hint) hint.classList.add('oculto');
+  }
+  function fin(){ arrastrando = false; }
+
+  fake.addEventListener('pointerdown', (e)=>{
+    if (e.target.closest('.pin-mapa') && false) return; // permitir arrastrar aunque empiece sobre un pin
+    fake.setPointerCapture(e.pointerId);
+    inicio(e.clientX, e.clientY);
+  });
+  fake.addEventListener('pointermove', (e)=> mover(e.clientX, e.clientY));
+  fake.addEventListener('pointerup', fin);
+  fake.addEventListener('pointercancel', fin);
+
+  // evitar que un pin abra la ficha si en realidad se estaba arrastrando el mapa
+  lienzo.querySelectorAll('.pin-mapa').forEach(pin=>{
+    pin.addEventListener('click', (e)=>{
+      if (moved) { e.stopPropagation(); moved = false; }
+    }, true);
+  });
+})();

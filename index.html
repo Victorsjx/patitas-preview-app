@@ -28,7 +28,7 @@
             <div class="saludo">Hola, Camila 👋</div>
             <div class="brand">Patitas al Rescate 🐾</div>
           </div>
-          <div class="avatar-mini">C</div>
+          <div class="avatar-mini" data-goto="perfil" style="cursor:pointer;">C</div>
         </div>
         <div class="stats-hero">
           <div class="stat-chip">🚨 <div><b>6</b><span>Urgentes</span></div></div>
@@ -68,17 +68,22 @@
 
     <!-- MAPA -->
     <div class="vista" data-vista="mapa">
-      <div class="mapa-fake">
+      <div class="mapa-fake" id="mapaFake">
         <div class="filtros-mapa">
           <div class="filtro-pill on" data-filtro="todo">Todo</div>
           <div class="filtro-pill" data-filtro="Urgente">🔴</div>
           <div class="filtro-pill" data-filtro="Atención">🟡</div>
           <div class="filtro-pill" data-filtro="adopcion">🟢</div>
         </div>
-        <div class="pin-mapa" data-estado="Urgente" data-reporte="perrita" style="background:#e53e3e;top:90px;left:60px;">⚠️</div>
-        <div class="pin-mapa" data-estado="Atención" data-reporte="senior" style="background:#d69e2e;top:130px;left:150px;">ℹ️</div>
-        <div class="pin-mapa" data-estado="adopcion" data-reporte="luna" style="background:#2d5a3d;top:170px;left:100px;">❤️</div>
-        <div class="pin-mapa" data-estado="Urgente" data-reporte="gatito" style="background:#e53e3e;top:60px;left:220px;">⚠️</div>
+        <div class="mapa-lienzo" id="mapaLienzo">
+          <div class="pin-mapa" data-estado="Urgente" data-reporte="perrita" style="background:#e53e3e;top:150px;left:110px;">⚠️</div>
+          <div class="pin-mapa" data-estado="Atención" data-reporte="senior" style="background:#d69e2e;top:190px;left:220px;">ℹ️</div>
+          <div class="pin-mapa" data-estado="adopcion" data-reporte="luna" style="background:#2d5a3d;top:230px;left:160px;">❤️</div>
+          <div class="pin-mapa" data-estado="Urgente" data-reporte="gatito" style="background:#e53e3e;top:110px;left:290px;">⚠️</div>
+          <div class="pin-mapa" data-estado="adopcion" data-reporte="simon" style="background:#2d5a3d;top:280px;left:280px;">❤️</div>
+          <div class="pin-mapa" data-estado="Atención" data-reporte="colonia" style="background:#d69e2e;top:80px;left:180px;">ℹ️</div>
+        </div>
+        <div class="mapa-hint" id="mapaHint">👆 Arrastra el mapa</div>
         <div class="leyenda-mapa">
           🔴 Urgente<br>🟡 En atención<br>🟢 En adopción
         </div>
@@ -174,6 +179,7 @@
 
     <!-- FICHA DE DETALLE (calcada de _mostrarDetalle en main.dart) -->
     <div class="sheet" id="sheetFicha">
+      <button class="sheet-close" data-cerrar>✕</button>
       <div class="sheet-handle"></div>
       <div class="sheet-foto" id="fichaFoto">🐾</div>
       <div class="sheet-body">
@@ -189,6 +195,7 @@
 
     <!-- FORMULARIO REPORTAR (calcado de FormReporte en main.dart) -->
     <div class="sheet" id="sheetForm">
+      <button class="sheet-close" data-cerrar>✕</button>
       <div class="sheet-handle"></div>
       <div class="sheet-body">
         <b style="font-size:16px;">Reportar Animal</b>
